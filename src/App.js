@@ -1,11 +1,22 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import { Route } from 'react-router-dom'
 import MainPage from './components/mainPage'
 import Search from './components/search'
 import './App.css'
 
 class BooksApp extends React.Component {
+
+  state = {
+    myBooks: [],
+    test: 'Let us see if it works'
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then((myBooks) => {
+        this.setState({myBooks})
+    })
+  }
 
   render() {
     return (
@@ -19,8 +30,10 @@ class BooksApp extends React.Component {
         <Route
           exact
           path='/'
-          render={( {history} ) => (
-            <MainPage/>
+          render={() => (
+            <MainPage
+              myBooks={this.state.myBooks}
+            />
           )}
         />
       </div>

@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom'
 // import PropTypes from 'prop-types'
 
 class MainPage extends Component {
+
   render () {
+
+    console.log(this.props.myBooks)
     return (
       <div>
         <div className="list-books">
