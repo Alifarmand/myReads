@@ -8,7 +8,7 @@ body, .app {
   background: white;
 }
 
-/* main page */
+/* main pages */
 
 .list-books-title {
   padding: 10px 0;
@@ -62,7 +62,7 @@ body, .app {
   font-size: 0;
 }
 
-/* search page */
+/* search pages */
 
 .search-books-bar {
   position: fixed;

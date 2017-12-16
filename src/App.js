@@ -7,8 +7,13 @@ import './App.css'
 
 class BooksApp extends React.Component {
 
+  //State has pages
   state = {
     myBooks: [],
+    pages: {
+      root: '/',
+      search: '/search'
+    },
     test: 'Let us see if it works'
   }
 
@@ -23,15 +28,20 @@ class BooksApp extends React.Component {
       <div className="app">
         <Route
           exact
-          path='/search'
-          component={Search}
+          path={this.state.pages.search}
+          render={() => (
+            <Search
+              page={this.state.pages}
+            />
+          )}
         />
 
         <Route
           exact
-          path='/'
+          path={this.state.pages.root}
           render={() => (
             <MainPage
+              page={this.state.pages}
               myBooks={this.state.myBooks}
             />
           )}

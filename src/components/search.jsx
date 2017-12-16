@@ -8,7 +8,7 @@ class Search extends Component {
       <div>
         <div className="search-books">
           <div className="search-books-bar">
-            <Link className="close-search" to='/'>Close</Link>
+            <Link className="close-search" to={this.props.pages.root}>Close</Link>
             <div className="search-books-input-wrapper">
               {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
