@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 class MainPage extends Component {
 
+  static propTypes = {
+    myBooks: PropTypes.array.isRequired,
+    onChangeShelf: PropTypes.func.isRequired
+  }
+
   state = {
-    query: '',
     shelfs: [
       {name: 'Currently Reading', id: 'currentlyReading'},
       {name: 'Want to Read', id: 'wantToRead'},
@@ -13,11 +17,15 @@ class MainPage extends Component {
     ]
   }
 
+  showSelected() {
+    return 'selected'
+  }
+
   render () {
 
     const { myBooks } = this.props.data
+    const { onChangeShelf } = this.props
 
-    console.log(myBooks)
     return (
       <div>
         <div className="list-books">
@@ -33,7 +41,7 @@ class MainPage extends Component {
                     <ol className="books-grid">
                       {myBooks.map((book, index) => {
                         return (
-                          (book.shelf == shelf.id &&
+                          (book.shelf === shelf.id &&
                             <li key={index} >
                               <div className='book' >
                                 <div className='book-top' >
@@ -43,7 +51,7 @@ class MainPage extends Component {
                                     backgroundImage: `url(${book.imageLinks.thumbnail})`
                                   }} ></div >
                                   <div className='book-shelf-changer' >
-                                    <select >
+                                    <select value={shelf.id} onChange={(event) => onChangeShelf(event, book)}>
                                       <option value='none' disabled >Move to...</option >
                                       <option value='currentlyReading' >Currently Reading</option >
                                       <option value='wantToRead' >Want to Read</option >

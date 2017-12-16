@@ -7,6 +7,11 @@ import './App.css'
 
 class BooksApp extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.changeShelf = this.changeShelf.bind(this);
+  }
+
   //State has pages
   state = {
     myBooks: [],
@@ -19,6 +24,18 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then((myBooks) => {
       this.setState({myBooks})
+    })
+  }
+
+  changeShelf(event, book) {
+    book.shelf = event.target.value
+    const myBooks = this.state.myBooks
+    myBooks.map((myBook) => {
+      if(book.title === myBook.title) {
+        this.setState({
+          myBook: book
+        })
+      }
     })
   }
 
@@ -40,6 +57,7 @@ class BooksApp extends React.Component {
           path={this.state.pages.root}
           render={() => (
             <MainPage
+              onChangeShelf={this.changeShelf}
               data={this.state}
             />
           )}
