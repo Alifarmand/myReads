@@ -13,13 +13,12 @@ class BooksApp extends React.Component {
     pages: {
       root: '/',
       search: '/search'
-    },
-    test: 'Let us see if it works'
+    }
   }
 
   componentDidMount() {
     BooksAPI.getAll().then((myBooks) => {
-        this.setState({myBooks})
+      this.setState({myBooks})
     })
   }
 
@@ -31,7 +30,7 @@ class BooksApp extends React.Component {
           path={this.state.pages.search}
           render={() => (
             <Search
-              page={this.state.pages}
+              pages={this.state.pages}
             />
           )}
         />
@@ -41,8 +40,7 @@ class BooksApp extends React.Component {
           path={this.state.pages.root}
           render={() => (
             <MainPage
-              page={this.state.pages}
-              myBooks={this.state.myBooks}
+              data={this.state}
             />
           )}
         />
