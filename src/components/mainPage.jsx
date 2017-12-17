@@ -9,21 +9,10 @@ class MainPage extends Component {
     onChangeShelf: PropTypes.func.isRequired
   }
 
-  state = {
-    shelfs: [
-      {name: 'Currently Reading', id: 'currentlyReading'},
-      {name: 'Want to Read', id: 'wantToRead'},
-      {name: 'Read', id: 'read'}
-    ]
-  }
-
-  showSelected() {
-    return 'selected'
-  }
-
   render () {
 
-    const { myBooks } = this.props.data
+    // Get the data from parent component with props
+    const { myBooks, myShelf } = this.props.data
     const { onChangeShelf } = this.props
 
     return (
@@ -34,11 +23,12 @@ class MainPage extends Component {
           </div>
           <div className="list-books-content">
             <div>
-              {this.state.shelfs.map((shelf, index) => (
-                <div className="bookshelf" key={index}>
-                  <h2 className="bookshelf-title">{shelf.name}</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
+              {myShelf.category.map((shelf, index) => (
+                  ( shelf.empty === false &&
+                <div className="bookshelf" key={index} >
+                  <h2 className="bookshelf-title" >{shelf.name}</h2 >
+                  <div className="bookshelf-books" >
+                    <ol className="books-grid" >
                       {myBooks.map((book, index) => {
                         return (
                           (book.shelf === shelf.id &&
@@ -51,7 +41,7 @@ class MainPage extends Component {
                                     backgroundImage: `url(${book.imageLinks.thumbnail})`
                                   }} ></div >
                                   <div className='book-shelf-changer' >
-                                    <select value={shelf.id} onChange={(event) => onChangeShelf(event, book)}>
+                                    <select value={shelf.id} onChange={(event) => onChangeShelf(event, book)} >
                                       <option value='none' disabled >Move to...</option >
                                       <option value='currentlyReading' >Currently Reading</option >
                                       <option value='wantToRead' >Want to Read</option >
@@ -66,10 +56,10 @@ class MainPage extends Component {
                             </li >
                           ))
                       })}
-                    </ol>
-                  </div>
-                </div>
-                )
+                    </ol >
+                  </div >
+                </div >
+              ))
               )}
             </div>
           </div>

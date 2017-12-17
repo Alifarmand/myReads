@@ -7,31 +7,40 @@ import './App.css'
 
 class BooksApp extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.changeShelf = this.changeShelf.bind(this);
+  constructor (props) {
+    super(props)
+    this.changeShelf = this.changeShelf.bind(this)
   }
 
-  //State has pages
+  // State has pages
   state = {
     myBooks: [],
+    myShelf: {
+      active: [],
+      category: [
+        { name: 'Currently Reading', id: 'currentlyReading', empty: false },
+        { name: 'Want to Read', id: 'wantToRead', empty: false },
+        { name: 'Read', id: 'read', empty: false }
+      ]
+    },
     pages: {
       root: '/',
       search: '/search'
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     BooksAPI.getAll().then((myBooks) => {
-      this.setState({myBooks})
+      this.setState({ myBooks })
     })
   }
 
-  changeShelf(event, book) {
+  changeShelf (event, book) {
     book.shelf = event.target.value
     const myBooks = this.state.myBooks
+
     myBooks.map((myBook) => {
-      if(book.title === myBook.title) {
+      if (book.title === myBook.title) {
         this.setState({
           myBook: book
         })
@@ -39,15 +48,16 @@ class BooksApp extends React.Component {
     })
   }
 
-  render() {
+  render () {
     return (
-      <div className="app">
+      <div className='app' >
         <Route
           exact
           path={this.state.pages.search}
           render={() => (
             <Search
               pages={this.state.pages}
+              myBooks={this.state.myBooks}
             />
           )}
         />
@@ -62,7 +72,7 @@ class BooksApp extends React.Component {
             />
           )}
         />
-      </div>
+      </div >
     )
   }
 }
