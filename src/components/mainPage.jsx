@@ -23,7 +23,7 @@ class MainPage extends Component {
           </div>
           <div className="list-books-content">
             <div>
-              {myShelf.category.map((shelf, index) => (
+              {myShelf.map((shelf, index) => (
                   ( shelf.empty === false &&
                 <div className="bookshelf" key={index} >
                   <h2 className="bookshelf-title" >{shelf.name}</h2 >

@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import { Route } from 'react-router-dom'
 import MainPage from './components/mainPage'
 import Search from './components/search'
+import _ from 'lodash'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -15,14 +16,11 @@ class BooksApp extends React.Component {
   // State has pages
   state = {
     myBooks: [],
-    myShelf: {
-      active: [],
-      category: [
-        { name: 'Currently Reading', id: 'currentlyReading', empty: false },
-        { name: 'Want to Read', id: 'wantToRead', empty: false },
-        { name: 'Read', id: 'read', empty: false }
-      ]
-    },
+    myShelf: [
+      { name: 'Currently Reading', id: 'currentlyReading', empty: false, books: [] },
+      { name: 'Want to Read', id: 'wantToRead', empty: false, books: [] },
+      { name: 'Read', id: 'read', empty: false, books: [] }
+    ],
     pages: {
       root: '/',
       search: '/search'
