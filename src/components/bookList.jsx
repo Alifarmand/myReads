@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 function BookList (props) {
 
   const { books, onChangeShelf } = props
-  console.log(props.books)
+
   return(
     <ol className="books-grid">
       {books && books.length > 0 &&

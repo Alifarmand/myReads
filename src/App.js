@@ -11,6 +11,7 @@ class BooksApp extends React.Component {
   constructor (props) {
     super(props)
     this.changeShelf = this.changeShelf.bind(this)
+    this.putBookInShelf = this.putBookInShelf.bind(this)
   }
 
   // State has pages
@@ -27,9 +28,21 @@ class BooksApp extends React.Component {
     }
   }
 
+  putBookInShelf(book) {
+    const { myShelf } = this.state
+    myShelf.map((shelf) => {
+      if (book.shelf === shelf.id) {
+        shelf.books.push(book.id)
+      }
+    })
+  }
+
   componentDidMount () {
     BooksAPI.getAll().then((myBooks) => {
       this.setState({ myBooks })
+      myBooks.map((book) => {
+        this.putBookInShelf(book)
+      })
     })
   }
 
@@ -39,6 +52,7 @@ class BooksApp extends React.Component {
 
     myBooks.map((myBook) => {
       if (book.title === myBook.title) {
+
         this.setState({
           myBook: book
         })
