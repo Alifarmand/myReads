@@ -1,26 +1,18 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
 import { Route } from 'react-router-dom'
-import MainPage from './components/mainPage'
-import Search from './components/search'
-import _ from 'lodash'
+import Search from './components/Search'
+import BookList from './components/BookList'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 class BooksApp extends React.Component {
-
-  constructor (props) {
-    super(props)
-    this.changeShelf = this.changeShelf.bind(this)
-    this.putBookInShelf = this.putBookInShelf.bind(this)
-  }
-
   // State has pages
   state = {
-    myBooks: [],
-    myShelf: [
-      { name: 'Currently Reading', id: 'currentlyReading', empty: false, books: [] },
-      { name: 'Want to Read', id: 'wantToRead', empty: false, books: [] },
-      { name: 'Read', id: 'read', empty: false, books: [] }
+    books: [],
+    myShelfs: [
+      {name: 'Currently Reading', id: 'currentlyReading'},
+      {name: 'Want To Read', id: 'wantToRead'},
+      {name: 'Read', id: 'read'},
     ],
     pages: {
       root: '/',
@@ -28,35 +20,25 @@ class BooksApp extends React.Component {
     }
   }
 
-  putBookInShelf(book) {
-    const { myShelf } = this.state
-    myShelf.map((shelf) => {
-      if (book.shelf === shelf.id) {
-        shelf.books.push(book.id)
-      }
-    })
-  }
-
   componentDidMount () {
-    BooksAPI.getAll().then((myBooks) => {
-      this.setState({ myBooks })
-      myBooks.map((book) => {
-        this.putBookInShelf(book)
+    BooksAPI.getAll().then(data => {
+      this.setState({
+        books: data
       })
     })
   }
 
-  changeShelf (event, book) {
-    book.shelf = event.target.value
-    const myBooks = this.state.myBooks
+  handleShelfChange = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(() => {
+      this.getBooksOnShelf()
+    })
+  }
 
-    myBooks.map((myBook) => {
-      if (book.title === myBook.title) {
-
-        this.setState({
-          myBook: book
-        })
-      }
+  getBooksOnShelf () {
+    BooksAPI.getAll().then(data => {
+      this.setState({
+        books: data
+      })
     })
   }
 
@@ -65,24 +47,23 @@ class BooksApp extends React.Component {
       <div className='app' >
         <Route
           exact
-          path={this.state.pages.search}
-          render={() => (
-            <Search
+          path={this.state.pages.root}
+          render={() =>
+            <BookList
+              booksOnShelf={this.state.books}
               pages={this.state.pages}
-              myBooks={this.state.myBooks}
+              myShelfs={this.state.myShelfs}
             />
-          )}
+          }
         />
 
         <Route
-          exact
-          path={this.state.pages.root}
-          render={() => (
-            <MainPage
-              onChangeShelf={this.changeShelf}
-              data={this.state}
-            />
-          )}
+          path={this.state.pages.search}
+          render={() =>
+            <Search
+              onShelfChange={this.handleShelfChange}
+              pages={this.state.pages}
+              booksOnShelf={this.state.books} />}
         />
       </div >
     )
