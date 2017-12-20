@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import Shelfs from './Shelfs'
+import BookView from './BookView'
 
 import * as BooksAPI from '../BooksAPI'
 import '../App.css'
@@ -27,7 +27,7 @@ class BookList extends Component {
         </div >
         <div className='list-books-content' >
           {myShelfs.map((shelf, index) => (
-            <Shelfs
+            <BookView
               key={index}
               books={this.props.booksOnShelf.filter(book => book.shelf === shelf.id)}
               onChangeShelf={this.handleChangeShelf}

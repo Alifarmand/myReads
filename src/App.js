@@ -30,11 +30,11 @@ class BooksApp extends React.Component {
 
   handleShelfChange = (book, shelf) => {
     BooksAPI.update(book, shelf).then(() => {
-      this.getBooksOnShelf()
+      this.getBooksFromShelf()
     })
   }
 
-  getBooksOnShelf () {
+  getBooksFromShelf () {
     BooksAPI.getAll().then(data => {
       this.setState({
         books: data
