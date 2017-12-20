@@ -14,11 +14,26 @@ class Search extends Component {
   }
   state = {
     query: '',
-    books: []
+    books: [],
+    mySearch: {
+      query: '',
+      books: []
+    }
+  }
+
+  componentDidMount() {
+    const localSearch = localStorage.getItem('mySearch')
+    this.updateQuery(localSearch)
+
+    //This is a spread operator
+    this.setState({
+      mySearch: Object.assign(this.state.mySearch, {query: localSearch})
+    })
   }
 
   updateQuery = (query) => {
     this.setState({ query })
+    localStorage.setItem('mySearch', query)
     query = query.replace(/[^a-zA-Z]+/g, '')
     if (query) {
       BooksAPI.search(query).then(
@@ -33,6 +48,7 @@ class Search extends Component {
         }
       )
     } else {
+      localStorage.setItem('mySearch', '')
       this.setState({
         query: '',
         books: []

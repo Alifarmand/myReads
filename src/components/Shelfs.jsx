@@ -8,7 +8,7 @@ class BookShelf extends Component {
 
   componentWillMount() {
     const { books, onChangeShelf, whatFor, updateBookOnSearch } = this.props
-    console.log(whatFor + 'And new function ' + updateBookOnSearch)
+    // console.log(whatFor + 'And new function ' + updateBookOnSearch)
   }
 
   render () {
