@@ -7,11 +7,6 @@ import * as BooksAPI from '../BooksAPI'
 import '../App.css'
 
 class Search extends Component {
-
-  constructor() {
-    super()
-    this.updateBookOnSearch = this.updateBookOnSearch.bind(this)
-  }
   state = {
     query: '',
     books: [],
@@ -19,6 +14,11 @@ class Search extends Component {
       query: '',
       books: []
     }
+  }
+
+  constructor() {
+    super()
+    this.updateBookOnSearch = this.updateBookOnSearch.bind(this)
   }
 
   componentDidMount() {
@@ -76,7 +76,8 @@ class Search extends Component {
     const bookToUpdate = oldBooks.filter(t => t.id === book.id)[0]
     bookToUpdate.shelf = shelf
     this.setState({
-      books: oldBooks
+      books: oldBooks,
+      mySearch: Object.assign(this.state.mySearch, {books: oldBooks})
     })
     this.props.onShelfChange(book, shelf)
   }
