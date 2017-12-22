@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { DebounceInput } from 'react-debounce-input'
 import BookView from './BookView'
@@ -110,6 +111,12 @@ class Search extends Component {
       </div >
     )
   }
+}
+
+Search.propTypes = {
+  onShelfChange: PropTypes.func.isRequired,
+  pages: PropTypes.object.isRequired,
+  booksOnShelf: PropTypes.array.isRequired
 }
 
 export default Search
