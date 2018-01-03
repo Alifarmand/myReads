@@ -39,8 +39,6 @@ class BookView extends Component {
                   <div
                     className='book-cover'
                     style={{
-                      width: 128,
-                      height: 193,
                       backgroundImage: `url(${book.hasOwnProperty('imageLinks') ? book.imageLinks.thumbnail : 'http://www.allthingscahill.com/wp-content/uploads/2011/08/tb_sign1.png'})`
                     }}
                   />
