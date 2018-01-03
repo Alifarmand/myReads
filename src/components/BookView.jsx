@@ -43,7 +43,7 @@ class BookView extends Component {
                     }}
                   />
                   <div className='book-shelf-changer' >
-                    <select value={book.shelf} onChange={e => this.state.forShelf ? onChangeShelf(book.id, e) : updateBookOnSearch(book, e.target.value)} >
+                    <select value={book.shelf} onChange={e => this.state.forShelf ? onChangeShelf(book, e.target.value) : updateBookOnSearch(book, e.target.value)} >
                       <option value='none' disabled >
                         Move to...
                       </option >

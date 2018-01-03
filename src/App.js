@@ -50,6 +50,7 @@ class BooksApp extends React.Component {
           path={this.state.pages.root}
           render={() =>
             <BookList
+              onShelfChange={this.handleShelfChange}
               booksOnShelf={this.state.books}
               pages={this.state.pages}
               myShelfs={this.state.myShelfs}
