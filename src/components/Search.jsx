@@ -35,7 +35,9 @@ class Search extends Component {
   updateQuery = (query) => {
     this.setState({ query })
     localStorage.setItem('mySearch', query)
-    query = query.replace(/[^a-zA-Z]+/g, '')
+    if (query !== null){
+      query = query.replace(/[^a-zA-Z]+/g, '')
+    }
     if (query) {
       BooksAPI.search(query).then(
         response => {
