@@ -3,6 +3,15 @@ import PropTypes from 'prop-types'
 
 class BookView extends Component {
 
+  whatFor(book, event) {
+    const { onChangeShelf, updateBookOnSearch } = this.props
+    if (this.state.forShelf) {
+      onChangeShelf(book, event.target.value)
+    } else {
+      updateBookOnSearch(book, event.target.value)
+    }
+  }
+
   state = {
     forShelf: true,
   }
@@ -22,7 +31,7 @@ class BookView extends Component {
 
   render () {
 
-    const { books, updateBookOnSearch, onChangeShelf } = this.props
+    const { books} = this.props
 
     return (
       <div className='bookshelf' >
@@ -43,7 +52,7 @@ class BookView extends Component {
                     }}
                   />
                   <div className='book-shelf-changer' >
-                    <select value={book.shelf} onChange={e => this.state.forShelf ? onChangeShelf(book, e.target.value) : updateBookOnSearch(book, e.target.value)} >
+                    <select value={book.shelf} onChange={(event) => this.whatFor(book, event)} >
                       <option value='none' disabled >
                         Move to...
                       </option >
@@ -55,7 +64,7 @@ class BookView extends Component {
                   </div >
                 </div >
                 <div className={book.title ? 'book-title' : 'book-title missing'} >{book.title ? book.title : 'Title is missing'}</div >
-                <div className={book.authors ? 'book-authors' : 'book-authors missing'} >{book.authors ? book.authors : 'Author name missing'}</div >
+                <div className={book.authors ? 'book-authors' : 'book-authors missing'} >{book.authors ? book.authors.join(', ') : 'Author name missing'}</div >
               </li >
             )}
           </ol >
